@@ -103,8 +103,8 @@ else console.log('Running using Developer settings');
 // ============================================================================================================================
 // 														Deployment Tracking
 // ============================================================================================================================
-console.log('- Tracking Deployment');
-require('cf-deployment-tracker-client').track();		//reports back to us, this helps us judge interest! feel free to remove it
+//console.log('- Tracking Deployment');
+//require('cf-deployment-tracker-client').track();		//reports back to us, this helps us judge interest! feel free to remove it
 
 // ============================================================================================================================
 // ============================================================================================================================
@@ -137,46 +137,38 @@ var ibc = new Ibc1();
 //this hard coded list is intentionaly left here, feel free to use it when initially starting out
 //please create your own network when you are up and running
 var manual ={
+	'credentials': {
+		'peers': [
+			{
+				'discovery_host': '192.168.18.125',
+				'discovery_port': 30303,
+				'api_host': '192.168.18.125',
+				'api_port_tls': 443,
+				'api_port': 5000,
+				'type': 'peer',
+				'network_id': 'vp0',
+				'id': 'dev_vp0',
+				'api_url': 'http://192.168.18.125:5000'
+			}
+		],
+	}
+		/*
 'credentials': {
+
 	'peers': [
 		{
-		'discovery_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp1-discovery.blockchain.ibm.com',
+		'discovery_host': '172.17.0.2',
 		'discovery_port': 30303,
-		'api_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp1-api.blockchain.ibm.com',
+		'api_host': '172.17.0.2',
 		'api_port_tls': 443,
-		'api_port': 80,
+		'api_port': 5000,
 		'type': 'peer',
-		'network_id': '99b6b815-712a-44b3-9a5f-b140dbd37163',
+		'network_id': 'dev',
 		'container_id': 'd7383c29eaa4c85bb1b41448fd1895617d721ac48ff1747b4d813cf37b6d9130',
-		'id': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp1',
-		'api_url': 'http://99b6b815-712a-44b3-9a5f-b140dbd37163_vp1-api.blockchain.ibm.com:80'
+		'id': 'dev_vp1',
+		'api_url': 'http://172.17.0.2:5000'
 		},
-		{
-		'discovery_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp2-discovery.blockchain.ibm.com',
-		'discovery_port': 30303,
-		'api_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp2-api.blockchain.ibm.com',
-		'api_port_tls': 443,
-		'api_port': 80,
-		'type': 'peer',
-		'network_id': '99b6b815-712a-44b3-9a5f-b140dbd37163',
-		'container_id': '90c6b19ab7676f28ce8deb53ed26430f68f43d4ca9b8d6432a7ef1440a09406b',
-		'id': '99b6b815-712a-44b3-9a5f-b140dbd37163_vp2',
-		'api_url': 'http://99b6b815-712a-44b3-9a5f-b140dbd37163_vp2-api.blockchain.ibm.com:80'
-		}
 	],
-	'ca': {
-		'99b6b815-712a-44b3-9a5f-b140dbd37163_ca': {
-		'url': '99b6b815-712a-44b3-9a5f-b140dbd37163_ca-api.blockchain.ibm.com:30303',
-		'discovery_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_ca-discovery.blockchain.ibm.com',
-		'discovery_port': 30303,
-		'api_host': '99b6b815-712a-44b3-9a5f-b140dbd37163_ca-api.blockchain.ibm.com',
-		'api_port_tls': 30303,
-		'api_port': 80,
-		'type': 'ca',
-		'network_id': '99b6b815-712a-44b3-9a5f-b140dbd37163',
-		'container_id': 'a6b1a4e7110e0d750db48d8f73df4628cf911263f47399695bc304d43ec52a20'
-		}
-	},
 	'users': [
 		{
 		'username': 'user_type1_d45433159c',
@@ -299,6 +291,7 @@ var manual ={
 		'enrollSecret': '2c95ae067d'
 		}
 	]}
+	*/
 };
 var peers = manual.credentials.peers;
 console.log('loading hardcoded peers');
@@ -343,7 +336,6 @@ var options = 	{
 						zip_url: 'https://github.com/ibm-blockchain/marbles-chaincode/archive/master.zip',
 						unzip_dir: 'marbles-chaincode-master/hyperledger/part2',								//subdirectroy name of chaincode after unzipped
 						git_url: 'https://github.com/ibm-blockchain/marbles-chaincode/hyperledger/part2',		//GO get http url
-					
 						//hashed cc name from prev deployment
 						//deployed_name: '14b711be6f0d00b190ea26ca48c22234d93996b6e625a4b108a7bbbde064edf0179527f30df238d61b66246fe1908005caa5204dd73488269c8999276719ca8b'
 					}
